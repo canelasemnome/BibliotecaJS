@@ -19,8 +19,8 @@ Permite cadastrar, listar, excluir livros e até gerar relatórios, com dados ar
 ## 🛠️ Tecnologias Utilizadas
 
 * **HTML5**
-* **CSS3**
-* **JavaScript (ES6+)**
+* **CSS**
+* **JavaScript**
 
 ---
 
@@ -29,12 +29,12 @@ Permite cadastrar, listar, excluir livros e até gerar relatórios, com dados ar
 ```
 BibliotecaJS/
  └── BibliotecaJS/
-     ├── index.html                # Página principal (UI)
-     ├── styles.css                # Estilos da aplicação
-     ├── main.js                   # Script principal
-     ├── biblioteca.json           # Base de dados inicial
+     ├── index.html                         # Página principal (UI)
+     ├── styles.css                         # Estilos da aplicação
+     ├── main.js                            # Script principal
+     ├── biblioteca.json                    # Base de dados inicial
      ├── Desenvolvimento de Sistemas.pptx   # Apresentação do projeto
-     └── funcoes/                  # Funções da aplicação
+     └── funcoes/                           # Funções da aplicação
          ├── armazenamento.js
          ├── cadastrarLivros.js
          ├── listarLivros.js
@@ -50,7 +50,7 @@ BibliotecaJS/
 1. Clone este repositório ou faça o download:
 
    ```bash
-   git clone https://github.com/Turofurrylover/Av1_3T_BE_BibliotecaJS.git
+   git clone https://github.com/canelasemnome/BibliotecaJS.git
    ```
 
 2. Acesse a pasta do projeto:
