@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Biblioteca — UI para funções JS existentes</title>
+  <style>
+    :root{
+      --bg: #0b0f14;
+      --panel: #111821;
+      --muted: #8aa0b3;
+      --text: #e8f0f7;
+      --acc: #6ee7ff;
+      --acc-2: #a78bfa;
+      --ok: #34d399;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --radius: 16px;
+      --shadow: 0 8px 28px rgba(0,0,0,.35);
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 800px at 80% -20%, rgba(167,139,250,.08), transparent),
+                  radial-gradient(900px 600px at -10% 110%, rgba(110,231,255,.08), transparent),
+                  var(--bg);
+      color: var(--text);
+      display:flex; align-items:stretch; justify-content:center;
+    }
+
+    .wrap{ width:min(1080px, 100%); padding:32px 20px; }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
+      border: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(6px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    header.card{
+      padding:24px 20px; margin-bottom:20px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    header h1{ font-size: clamp(20px, 2.6vw, 28px); margin:0; letter-spacing:.3px; }
+    header p{ margin:4px 0 0; color: var(--muted); font-size:14px; }
+
+    .grid{
+      display:grid; gap:20px;
+      grid-template-columns: 360px 1fr;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .panel{ padding:18px; }
+    .panel h2{ margin:0 0 12px; font-size:18px; }
+    .muted{ color: var(--muted); font-size: 14px; }
+
+    .btns{ display:grid; gap:10px; }
+    .btn{
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(110,231,255,.08), rgba(167,139,250,.08));
+      color: var(--text);
+      padding: 12px 14px; border-radius: 12px;
+      font-weight: 600; letter-spacing:.3px; cursor:pointer;
+      transition: transform .05s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover{ border-color: rgba(255,255,255,.24); box-shadow: 0 6px 18px rgba(110,231,255,.12); }
+    .btn:active{ transform: translateY(1px); }
+
+    .btn.ok{ background: linear-gradient(180deg, rgba(52,211,153,.16), rgba(52,211,153,.06)); }
+    .btn.warn{ background: linear-gradient(180deg, rgba(245,158,11,.16), rgba(245,158,11,.06)); }
+    .btn.danger{ background: linear-gradient(180deg, rgba(239,68,68,.16), rgba(239,68,68,.06)); }
+
+    .stack{ display:flex; flex-direction:column; gap:12px; }
+
+    .output.card{ padding:16px; min-height:220px; }
+    .output h3{ margin:0 0 8px; font-size:16px; }
+    .console{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: 13px; line-height: 1.45; white-space: pre-wrap; word-wrap: break-word;
+      background: #0a0f15; border:1px solid rgba(255,255,255,.06); border-radius: 10px;
+      padding:12px; color: #d0e1f5; min-height: 140px; max-height: 360px; overflow:auto;
+    }
+
+    .table-wrap{ overflow:auto; border-radius: 12px; border:1px solid rgba(255,255,255,.08); }
+    table{ width:100%; border-collapse: collapse; min-width: 560px; }
+    th, td{ padding:12px 10px; border-bottom:1px solid rgba(255,255,255,.08); text-align:left; }
+    th{ font-size: 13px; text-transform: uppercase; letter-spacing:.6px; color: var(--muted); }
+    tr:hover td{ background: rgba(255,255,255,.02); }
+
+    .tips{ margin-top:8px; }
+    .tips li{ margin: 6px 0; color: var(--muted); font-size: 13px; }
+
+    footer{ margin-top:16px; color: var(--muted); font-size: 12px; text-align:center; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="card">
+      <div>
+        <h1>📚 Biblioteca — Painel</h1>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section class="card panel">
+        <h2>Ações</h2>
+        <div class="btns">
+          <button class="btn" onclick="window.biblioteca = (window.carregarBiblioteca ? window.carregarBiblioteca() : window.biblioteca);">Carregar biblioteca</button>
+          <button class="btn ok" onclick="window.salvarBiblioteca && window.salvarBiblioteca(window.biblioteca);">Salvar biblioteca</button>
+
+          <hr style="border:none; border-top:1px solid rgba(255,255,255,.08)">
+
+          <button class="btn" onclick="window.cadastrarLivros && window.cadastrarLivros(window.biblioteca);">Cadastrar livro</button>
+          <button class="btn" onclick="window.listarLivros && window.listarLivros(window.biblioteca);">Listar livros</button>
+          <button class="btn warn" onclick="window.calcularTotal && window.calcularTotal(window.biblioteca);">Calcular total de livros</button>
+          <button class="btn" onclick="window.gerarRelatorio && window.gerarRelatorio(window.biblioteca);">Gerar relatório</button>
+          <button class="btn danger" onclick="window.excluirLivro && window.excluirLivro(window.biblioteca);">Excluir livro</button>
+        </div>
+      </section>
+      <section class="stack">
+        <div class="card panel">
+          <div class="table-wrap">
+            <table aria-label="Tabela de livros">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Título</th>
+                  <th>Autor</th>
+                  <th>Ano</th>
+                  <th>Qtd.</th>
+                </tr>
+              </thead>
+              <tbody id="tabela-livros"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="output card">
+          <div id="console-ui" class="console" aria-live="polite"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>
